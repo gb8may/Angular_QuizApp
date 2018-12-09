@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="quizApp">
 <head>
     <meta charset="UTF-8">
     <title>JS Quiz App</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-
 </head>
-<body>
-    <h1>Quiz App by Mayara Gouveia</h1>
+<body ng-controller="quizController">
+    {{message}}
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="app.js"></script>
+    <script src="js/controller/quizController.js"></script>
 </body>
 </html>
