@@ -52,6 +52,7 @@ gulp.task('index', function () {
 });
 
 gulp.task('watch', function () {
+    gulp.watch('app/index.html', ['index']);
     gulp.watch('app/js/**/*.js', ['appModules']);
     gulp.watch('app/css/*.css', ['css']);
     gulp.watch('app/templates/**/*.html', ['templates']);

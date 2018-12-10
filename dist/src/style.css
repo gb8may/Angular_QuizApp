@@ -9028,6 +9028,33 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
-h1{
-    color: #2f6f9f;
+.quizcontainer {
+    width: 100%;
+    height: 600px;
+    padding: 60px;
+    background-color: #2f6f9f;
+}
+
+.nav {
+    padding-left: 15px;
+}
+
+.navbar {
+    display: block;
+}
+
+.navbar navbar-expand-lg navbar-light bg-light {
+    background-color: #0c5460;
+}
+
+.navbar-default {
+    background-color: #4e555b;
+}
+
+.btn-default:hover {
+    color: #9fcdff;
+    font-style: italic;
+    font-size: large;
+    background-color: #5a6268;
+    transition: all .25s ease-in-out;
 }

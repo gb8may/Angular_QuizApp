@@ -27,5 +27,8 @@
     "gulp-uglify": "^3.0.0 ",
     "http-server": "^0.10.0",
     "main-bower-files": "^2.13.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3"
   }
 }
