@@ -9,8 +9,14 @@ var mainBowerFiles = require('main-bower-files');
 var gulpUglify = require('gulp-uglify');
 
 
-gulp.task('libs', function () {
+gulp.task('buildLibs', function () {
     return gulp.src(mainBowerFiles())
+        .pipe(gulp.dest('libs'));
+});
+
+
+gulp.task('libs', function () {
+    return gulp.src('libs/*.js')
         .pipe(angularFileSort())
         .pipe(concat('libs.js'))
         .pipe(gulpUglify())
@@ -21,7 +27,7 @@ gulp.task('appModules', function () {
     return gulp.src('app/js/**/*.js')
         .pipe(ngAnnotate())
         .pipe(angularFileSort())
-        .pipe(concat('scripts.js'))
+        .pipe(concat('app.js'))
         .pipe(gulp.dest('dist/src'));
 });
 
@@ -39,3 +45,16 @@ gulp.task('templates', function () {
         }))
         .pipe(gulp.dest('dist/src'));
 });
+
+gulp.task('index', function () {
+    return gulp.src('app/index.html')
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('watch', function () {
+    gulp.watch('app/js/**/*.js', ['appModules']);
+    gulp.watch('app/css/*.css', ['css']);
+    gulp.watch('app/templates/**/*.html', ['templates']);
+});
+
+gulp.task('build', ['index', 'templates', 'css', 'libs', 'appModules']);
