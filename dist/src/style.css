@@ -9043,6 +9043,10 @@ a.text-dark:hover, a.text-dark:focus {
     display: block;
 }
 
+.nav {
+    padding-left: 15px;
+}
+
 .navbar navbar-expand-lg navbar-light bg-light {
     background-color: #0c5460;
 }
