@@ -2,60 +2,82 @@
 
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var mainBowerFiles = require('main-bower-files');
 var angularFileSort = require('gulp-angular-filesort');
 var templateCache = require('gulp-angular-templatecache');
 var ngAnnotate = require('gulp-ng-annotate');
-var mainBowerFiles = require('main-bower-files');
-var gulpUglify = require('gulp-uglify');
-
-
-gulp.task('buildLibs', function () {
-    return gulp.src(mainBowerFiles())
+var bowerNormalizer = require('gulp-bower-normalize');
+var uglify = require('gulp-uglify');
+var concatCss = require('gulp-concat-css');
+var mergeStream = require('merge-stream');
+var cleanCSS = require('gulp-clean-css');
+// -------------------------------------------------------------------
+gulp.task('copyLibs', function() {
+    return gulp.src(mainBowerFiles(), {base: './bower_components'})
+        .pipe(bowerNormalizer({bowerJson: './bower.json'}))
         .pipe(gulp.dest('libs'));
 });
-
+// -------------------------------------------------------------------
 
 gulp.task('libs', function () {
-    return gulp.src('libs/*.js')
-        .pipe(angularFileSort())
-        .pipe(concat('libs.js'))
-        .pipe(gulpUglify())
-        .pipe(gulp.dest('dist/src'));
+   gulp.src('js/*.js')
+       .pipe(angularFileSort())
+       .pipe(concat('libs.js'))
+       .pipe(uglify())
+       .pipe(gulp.dest('app/dist/src'));
 });
 
-gulp.task('appModules', function () {
-    return gulp.src('app/js/**/*.js')
+gulp.task('cssLibs', function () {
+   return gulp.src('app/src/css/libs/**/*.css')
+       .pipe(gulp.dest('app/dist/css/'));
+});
+
+gulp.task('images', function () {
+    return gulp.src('app/src/images/*')
+        .pipe(gulp.dest('app/dist/'))
+});
+
+gulp.task('appModules', function(){
+    return gulp.src('app/src/js/**/*.js')
         .pipe(ngAnnotate())
         .pipe(angularFileSort())
-        .pipe(concat('app.js'))
-        .pipe(gulp.dest('dist/src'));
+        .pipe(concat('scripts.js'))
+        .pipe(gulp.dest('app/dist/src'));
 });
 
-gulp.task('css', function () {
-    return gulp.src('app/css/*.css')
+gulp.task('css', function(){
+    return gulp.src('app/src/css/mystyle.css')
         .pipe(concat('style.css'))
-        .pipe(gulp.dest('dist/src'));
+        .pipe(gulp.dest('app/dist/src/'));
 });
+
 
 gulp.task('templates', function () {
-    return gulp.src('app/templates/**/*.html')
-        .pipe(templateCache('template.js',{
+    return gulp.src('app/src/templates/**/*.html')
+        .pipe(templateCache('template.js', {
             module: 'quizApp',
-            root: 'app/templates/'
+            root: 'app/src/templates/'
         }))
-        .pipe(gulp.dest('dist/src'));
+        .pipe(gulp.dest('app/dist/src'));
 });
 
+// This Code is For Copying the app file
+gulp.task('appMain', function () {
+   return gulp.src('app/app.js')
+       .pipe(gulp.dest('app/dist'))
+});
+
+
+
+// This Code is for Index File
+
 gulp.task('index', function () {
-    return gulp.src('app/index.html')
-        .pipe(gulp.dest('dist/'));
+   return gulp.src('app/index.html')
+       .pipe(gulp.dest('app/dist'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('app/index.html', ['index']);
-    gulp.watch('app/js/**/*.js', ['appModules']);
-    gulp.watch('app/css/*.css', ['css']);
-    gulp.watch('app/templates/**/*.html', ['templates']);
+   gulp.watch('app/src/js/**/*.js', ['appModules']);
+   gulp.watch('app/src/css/*.css', ['css']);
+   gulp.watch('app/src/templates/**/*.html', ['templates']);
 });
-
-gulp.task('build', ['index', 'templates', 'css', 'libs', 'appModules']);
