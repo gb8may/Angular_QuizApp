@@ -1,0 +1,16 @@
+<form name="new_quiz" ng-submit="addQuiz()">
+    <div class="form-group">
+        <input type="text" name="author" ng-model="quiz.author" class="form-control" placeholder="Author"/>
+    </div>
+    <div class="form-group">
+        <input type="text" name="quizname" ng-model="quiz.quizName" class="form-control" placeholder="Quiz Name"
+        required >
+    </div>
+    <div class="form-group">
+        <input type="number" ng-model="quiz.questionLength" class="form-control" placeholder="Questions"
+               required >
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" value="Create New"/>
+    </div>
+</form>

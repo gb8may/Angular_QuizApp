@@ -1,6 +1,6 @@
 angular.module('quizApp').factory('Question', function (){
 
-    var Question - function () {
+    var Question = function () {
         var self = this;
         this.question = '';
         this.choices = {

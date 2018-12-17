@@ -1,7 +1,7 @@
-var quizApp = angular.module('quizApp',[]);
+var quizApp = angular.module('quizApp', []);
 
 quizApp.constant('appInformation', {
-    appName: 'Quiz App',
+    appName: 'Quiz Home',
     version: '1.0'
 });
 
@@ -19,4 +19,3 @@ quizApp.constant('takeQuizMode',{
     TAKEQUESTION: '7',
     SHOWRESULTS: '8'
 });
-

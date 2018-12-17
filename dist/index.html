@@ -2,13 +2,20 @@
 <html lang="en" ng-app="quizApp">
 <head>
     <meta charset="UTF-8">
-    <title>JS Quiz App</title>
+    <title>Angular JS Quiz App</title>
     <link rel="stylesheet" href="src/style.css">
 </head>
 <body ng-controller="quizController">
-    <div class="container">
+    <div>
         <div class="container-fluid">
             <div ng-include="'app/templates/menubar.html'"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <quiz-container></quiz-container>
+            </div>
         </div>
     </div>
 

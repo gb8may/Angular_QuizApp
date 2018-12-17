@@ -1,20 +1,22 @@
-angular.module('quizApp').controller('quizController', ['$scope','Quiz','Question','appMode','appInformation','takeQuizMode', '$window', function (
+angular.module('quizApp').controller('quizController', ['$scope','Quiz', 'Question','appMode','appInformation', 'takeQuizMode', '$window','quizHelper', function (
     $scope,
     Quiz,
     Question,
     appMode,
     appInformation,
     takeQuizMode,
-    $window
+    $window,
+    quizHelper
 ) {
 
 
-    windows.quizAppScope = $scope;
+    window.quizAppScope = $scope;
 
     // These are application modes
     $scope.appMode = appMode;
     $scope.takeQuizMode = takeQuizMode;
     $scope.appInformation = appInformation;
+
 
     $scope.quizMode = appMode.STARTAPP;
     $scope.quizLoaded = false;
@@ -34,7 +36,7 @@ angular.module('quizApp').controller('quizController', ['$scope','Quiz','Questio
 
 
     // Validation variable
-    $scope.validQiuestion = true;
+    $scope.validQuestion = true;
 
 
     //Checking question variable
@@ -51,11 +53,47 @@ angular.module('quizApp').controller('quizController', ['$scope','Quiz','Questio
 
 
     // This function will clear the forms
-    $scope.clearFields = () {
-        $scope.quiz - new Quiz();
+    $scope.clearField = function () {
+        $scope.quiz = new Quiz();
         $scope.question = new Question();
+    };
+
+
+    //This function will create a quiz for US
+    $scope.addQuiz = function () {
+        quizHelper.addQuiz($scope.quiz);
+        if (appMode.CREATEQUIZ){
+            $scope.changeAppMode(appMode.ADDQUESTION);
+        }
+    };
+
+
+    $scope.addQuestion = function () {
+        $scope.validQuestion = quizHelper.checkValidQuestion($scope.question);
+        if (!$scope.validQuestion){
+            return;
+        }
+
+        if ($scope.question.answer === 0){
+            $scope.validQuestion = false;
+            return;
+        }
+
+        quizHelper.sendQuestion($scope.question);
+        if($scope.countQuestion < $scope.quiz.questionLength){
+            $scope.countQuestion++;
+            $scope.question = new Question();
+        }else {
+            $scope.questionLimitExceeded = true;
+            quizHelper.addQuestionToQuiz($scope.quiz);
+            $scope.changeAppMode(appMode.SUCCESSQUIZ);
+        }
+    };
+
+    $scope.buildQuiz = function () {
+        quizHelper.saveQuizToJson($scope.quiz);
     }
 
-
-
 }]);
+
+

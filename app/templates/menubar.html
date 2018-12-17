@@ -1,7 +1,10 @@
-<nav class="navbar nav-justified">
-    <div class="nav justify-content-center">
-        <input type="button" class="btn btn-primary" value="Quiz Home" />
-        <input type="button" class="btn btn-primary" value="Create Quiz" />
-        <input type="button" class="btn btn-primary" value="Take Quiz" />
+<nav class="navbar navbar-default">
+    <div class="nav nav-tabs-justified">
+        <input type="button" class="btn btn-default navbar-btn" ng-value="appInformation.appName"
+            ng-click="changeAppMode(appMode.STARTAPP); clearField();"/>
+        <input type="button" class="btn btn-default navbar-btn" value="Create Quiz"
+               ng-click="changeAppMode(appMode.CREATEQUIZ)"/>
+        <input type="button" class="btn btn-dafault navbar-btn" value="Take Quiz"
+               ng-click="changeAppMode(appMode.TAKEQUIZ)" />
     </div>
 </nav>
