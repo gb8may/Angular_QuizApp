@@ -2,7 +2,8 @@
   "name": "quiz-app",
   "private": true,
   "version": "0.0.1",
-  "description": "Quiz App by Awais Mirza",
+  "author": "Mayara Gouveia",
+  "description": "Angular Quiz App",
   "repository": "",
   "license": "MIT",
   "devDependencies": {
